@@ -12,7 +12,6 @@ export default function TokenList() {
   const getFilteredTokens = () => {
     let filteredTokens = [...tokens];
     
-    // Apply search filter first
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filteredTokens = filteredTokens.filter((token) => 
@@ -22,7 +21,6 @@ export default function TokenList() {
       );
     }
     
-    // Then apply sort filter
     switch (currentFilter) {
       case "mostBuy":
         return filteredTokens.sort((a, b) => (b.buyVotes || 0) - (a.buyVotes || 0));
@@ -46,60 +44,64 @@ export default function TokenList() {
 
   return (
     <div className="w-full">
-      {/* Search and Filter Controls */}
-      <div className="mb-6">
-        <div className="flex flex-col sm:flex-row justify-between gap-4 items-center">
-          {/* Search Input */}
-          <div className="relative w-full sm:w-96">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-gray-400" />
+      {/* Enhanced Search and Filter Bar */}
+      <div className="mb-8 bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+        <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
+          {/* Improved Search Input */}
+          <div className="w-full sm:max-w-md">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Search className="h-5 w-5 text-gray-400" />
+              </div>
+              <input
+                type="text"
+                placeholder="Search tokens by address, name, or symbol"
+                value={searchQuery}
+                onChange={handleSearch}
+                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
+              />
             </div>
-            <input
-              type="text"
-              placeholder="Search CA or name"
-              value={searchQuery}
-              onChange={handleSearch}
-              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
           </div>
           
-          {/* Filter Buttons */}
-          <div className="flex gap-2">
+          {/* Refined Filter Buttons */}
+          <div className="flex gap-2 w-full sm:w-auto">
             <button
               onClick={() => setCurrentFilter("mostBuy")}
-              className={`px-4 py-2 rounded-lg ${
+              className={`px-4 py-2.5 rounded-lg font-medium text-sm transition-colors ${
                 currentFilter === "mostBuy"
-                  ? "bg-green-500 text-white"
-                  : "bg-white border-2 border-gray-200 hover:bg-gray-50"
+                  ? "bg-green-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
-              Most Buy Votes
+              Most Bullish
             </button>
             <button
               onClick={() => setCurrentFilter("mostBye")}
-              className={`px-4 py-2 rounded-lg ${
+              className={`px-4 py-2.5 rounded-lg font-medium text-sm transition-colors ${
                 currentFilter === "mostBye"
-                  ? "bg-red-500 text-white"
-                  : "bg-white border-2 border-gray-200 hover:bg-gray-50"
+                  ? "bg-red-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
-              Most Bye Votes
+              Most Bearish
             </button>
           </div>
         </div>
       </div>
 
-      {/* Results info */}
+      {/* Results Count */}
       {isSearching && (
-        <p className="text-gray-600 mb-4">
-          Found {filteredTokens.length} token{filteredTokens.length !== 1 ? 's' : ''} 
-          {searchQuery ? ` matching "${searchQuery}"` : ''}
-        </p>
+        <div className="mb-6">
+          <p className="text-sm text-gray-600 font-medium">
+            {filteredTokens.length} result{filteredTokens.length !== 1 ? 's' : ''} found
+            {searchQuery && ` for "${searchQuery}"`}
+          </p>
+        </div>
       )}
 
-      {/* Token Grid */}
+      {/* Original Token Card Layout (Unchanged) */}
       {loading && tokens.length === 0 ? (
-        <div className="flex justify-center py-4">
+        <div className="flex justify-center py-8">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
         </div>
       ) : filteredTokens.length > 0 ? (
@@ -114,11 +116,11 @@ export default function TokenList() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-8">
+        <div className="text-center py-12">
           <p className="text-gray-500">
             {searchQuery 
-              ? "No tokens found matching your search. Try a different search term."
-              : "No tokens available."}
+              ? "No matching tokens found. Try a different search."
+              : "No tokens available. Be the first to submit one!"}
           </p>
         </div>
       )}

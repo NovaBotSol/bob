@@ -37,37 +37,34 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header Section */}
-      <div className="bg-white shadow-sm">
-        <div className="container mx-auto px-8 relative">
-          {/* Wallet Button */}
-          <div className="absolute right-8 top-6">
+      {/* Enhanced Header Section */}
+      <header className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav className="flex justify-end items-center h-16">
             <WalletButton />
-          </div>
+          </nav>
           
-          {/* Title and Description */}
-          <div className="max-w-4xl mx-auto pt-20 pb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4 text-center">
+          {/* Improved Hero Section */}
+          <div className="max-w-3xl mx-auto text-center py-16">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
               BOB - Bull or Bear?
             </h1>
-            <p className="text-lg text-gray-600 mb-8 text-center">
+            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
               Welcome to the Solana token voting platform where the community decides! 
               Submit your favorite Solana tokens and users vote whether they are a "Bull" or "Bear". 
               Connect your wallet to upload or vote, and see what the community thinks about the latest tokens.
             </p>
 
-            {/* Token Input Section */}
-            <div className="max-w-2xl mx-auto">
-              <div className="bg-blue-50 p-6 rounded-lg shadow-sm">
-                <TokenInput onAddToken={handleAddToken} />
-              </div>
+            {/* Refined Token Input Container */}
+            <div className="max-w-2xl mx-auto bg-gray-50 p-6 rounded-xl border border-gray-200">
+              <TokenInput onAddToken={handleAddToken} />
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-8 py-8">
+      {/* Main Content Area */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {error ? (
           <div className="text-red-500 text-center py-4">{error}</div>
         ) : (
@@ -80,18 +77,18 @@ export default function Home() {
             />
             
             {loading && (
-              <div className="flex justify-center py-4">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+              <div className="flex justify-center py-8">
+                <div className="animate-spin rounded-full h-10 w-10 border-4 border-blue-500 border-t-transparent"></div>
               </div>
             )}
             
             {hasMore && !loading && (
-              <div className="flex justify-center py-4">
+              <div className="flex justify-center pt-8">
                 <button 
                   onClick={loadMoreTokens}
-                  className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+                  className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200 shadow-sm"
                 >
-                  Load More
+                  Load More Tokens
                 </button>
               </div>
             )}
