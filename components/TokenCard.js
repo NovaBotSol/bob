@@ -162,7 +162,7 @@ export default function TokenCard({ token }) {
           ) : (
             <ThumbsUp className="w-3 h-3" />
           )}
-          Bull
+          Bullish
         </button>
         <button
           onClick={() => handleVote("bye")}
@@ -191,7 +191,7 @@ export default function TokenCard({ token }) {
           ) : (
             <ThumbsDown className="w-3 h-3" />
           )}
-          Bear
+          Bearish
         </button>
       </div>
     </div>

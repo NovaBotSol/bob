@@ -37,25 +37,30 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Enhanced Header Section */}
-      <header className="bg-white shadow-sm">
+      <header className="bg-gray-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex justify-end items-center h-16">
+          <nav className="flex justify-between items-center h-16 border-b border-gray-200">
+            <div className="flex items-center space-x-2">
+              <span className="text-gray-900 font-medium">Join the community</span>
+              <a href="https://x.com/vote_bob_sol" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900 transition-colors duration-200">
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </a>
+            </div>
             <WalletButton />
           </nav>
           
-          {/* Improved Hero Section */}
           <div className="max-w-3xl mx-auto text-center py-16">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              BOB - Bull or Bear?
+              BOB - <span className="text-green-600">Bullish</span> or <span className="text-red-600">Bearish</span>
             </h1>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
               Welcome to the Solana token voting platform where the community decides! 
-              Submit your favorite Solana tokens and users vote whether they are a "Bull" or "Bear". 
+              Submit your favorite Solana tokens and users vote whether they are "Bullish" or "Bearish". 
               Connect your wallet to upload or vote, and see what the community thinks about the latest tokens.
             </p>
 
-            {/* Refined Token Input Container */}
             <div className="max-w-2xl mx-auto bg-gray-50 p-6 rounded-xl border border-gray-200">
               <TokenInput onAddToken={handleAddToken} />
             </div>
@@ -63,7 +68,6 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Main Content Area */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {error ? (
           <div className="text-red-500 text-center py-4">{error}</div>
