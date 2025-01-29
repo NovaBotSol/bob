@@ -48,12 +48,12 @@ export default function Home() {
           {/* Title and Description */}
           <div className="max-w-4xl mx-auto pt-20 pb-8">
             <h1 className="text-4xl font-bold text-gray-900 mb-4 text-center">
-              BOB - Buy or Bye?
+              BOB - Bull or Bear?
             </h1>
             <p className="text-lg text-gray-600 mb-8 text-center">
               Welcome to the Solana token voting platform where the community decides! 
-              Submit your favorite Solana tokens and vote whether to "Buy" or say "Bye." 
-              Connect your wallet to start voting and see what the community thinks about the latest tokens.
+              Submit your favorite Solana tokens and users vote whether they are a "Bull" or "Bear". 
+              Connect your wallet to upload or vote, and see what the community thinks about the latest tokens.
             </p>
 
             {/* Token Input Section */}
