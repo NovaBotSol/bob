@@ -1,0 +1,20 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // User profiles
+    match /users/{walletAddress} {
+      allow read, write: if true;
+    }
+    
+    // Tokens collection
+    match /tokens/{tokenAddress} {
+      allow read: if true;
+      allow write: if true;
+    }
+    
+    // Votes collection
+    match /votes/{voteId} {
+      allow read, write: if true;
+    }
+  }
+}
