@@ -56,7 +56,7 @@ export default function Home() {
               BOB - <span className="text-green-600">Bullish</span> or <span className="text-red-600">Bearish</span>
             </h1>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              Welcome to the Solana token voting platform where the community decides! 
+              Welcome to the first decentralized token voting platform where the community decides! 
               Submit your favorite Solana tokens and users vote whether they are "Bullish" or "Bearish". 
               Connect your wallet to upload or vote, and see what the community thinks about the latest tokens.
             </p>
