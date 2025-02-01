@@ -6,6 +6,34 @@ import toast from "react-hot-toast";
 import { ThumbsUp, ThumbsDown, Loader2 } from "lucide-react";
 import { recordVote } from "../lib/firebase";
 
+// List of reliable IPFS gateways
+const IPFS_GATEWAYS = [
+  "https://dweb.link/ipfs",
+  "https://gateway.pinata.cloud/ipfs",
+  "https://ipfs.io/ipfs",
+  "https://cloudflare-ipfs.com/ipfs"
+];
+
+const getImageUrl = (imageUrl) => {
+  if (!imageUrl) return "/default-token.png";
+  
+  // Remove any gateway prefix if present
+  const cleanUrl = imageUrl
+    .replace('https://ipfs.io/ipfs/', '')
+    .replace('ipfs://', '')
+    .replace('https://cloudflare-ipfs.com/ipfs/', '')
+    .replace('https://dweb.link/ipfs/', '')
+    .replace('https://gateway.pinata.cloud/ipfs/', '');
+  
+  // If it's already an HTTP URL, return as is
+  if (imageUrl.startsWith('http') && !imageUrl.includes('ipfs')) {
+    return imageUrl;
+  }
+  
+  // Return the first gateway + cleaned IPFS hash
+  return `${IPFS_GATEWAYS[0]}/${cleanUrl}`;
+};
+
 export default function TokenCard({ token }) {
   const { name, symbol, image, address } = token;
   const [votes, setVotes] = useState({
@@ -13,6 +41,7 @@ export default function TokenCard({ token }) {
     byeVotes: token.byeVotes || 0
   });
   const [isVoting, setIsVoting] = useState(false);
+  const [currentGatewayIndex, setCurrentGatewayIndex] = useState(0);
   const { connected, publicKey } = useWallet();
 
   // Real-time vote updates
@@ -51,6 +80,28 @@ export default function TokenCard({ token }) {
     }
   };
 
+  const handleImageError = (e) => {
+    const src = e.target.src;
+    // Extract the IPFS hash from the failing URL
+    const match = src.match(/ipfs\/(Qm[a-zA-Z0-9]+)/);
+    
+    if (match && match[1]) {
+      const hash = match[1];
+      const nextIndex = currentGatewayIndex + 1;
+      
+      if (nextIndex < IPFS_GATEWAYS.length) {
+        // Try next gateway
+        setCurrentGatewayIndex(nextIndex);
+        e.target.src = `${IPFS_GATEWAYS[nextIndex]}/${hash}`;
+      } else {
+        // If all gateways fail, use default image
+        e.target.src = "/default-token.png";
+      }
+    } else {
+      e.target.src = "/default-token.png";
+    }
+  };
+
   return (
     <div 
       style={{
@@ -77,13 +128,14 @@ export default function TokenCard({ token }) {
         justifyContent: 'center'
       }}>
         <img
-          src={image || "/placeholder.png"}
+          src={getImageUrl(image)}
           alt={`${name || "Unknown Token"} logo`}
           style={{
             width: '100%',
             height: '100%',
             objectFit: 'contain'
           }}
+          onError={handleImageError}
         />
       </div>
 

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Head from 'next/head';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useRealtimeTokens } from '../components/useRealtimeTokens';
 import TokenList from '../components/TokenList';
@@ -7,7 +8,7 @@ import WalletButton from '../components/WalletButton';
 import { addToken } from '../lib/firebase';
 import toast from 'react-hot-toast';
 
-export default function Home() {
+function Home() {
   const { tokens, loading, error, hasMore, loadMoreTokens } = useRealtimeTokens(12);
   const [submitting, setSubmitting] = useState(false);
   const { connected, publicKey } = useWallet();
@@ -37,6 +38,16 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Head>
+        <title>BOB - Bullish or Bearish?</title>
+        <link rel="shortcut icon" href="boblogo.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="boblogo.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="boblogo.png" />
+        <link rel="apple-touch-icon" href="boblogo.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="boblogo.png" />
+        <link rel="manifest" href="/manifest.json" />
+      </Head>
+
       <header className="bg-gray-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex justify-between items-center h-16 border-b border-gray-200">
@@ -102,3 +113,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;
