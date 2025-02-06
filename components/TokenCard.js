@@ -37,8 +37,8 @@ const getImageUrl = (imageUrl) => {
 export default function TokenCard({ token }) {
   const { name, symbol, image, address } = token;
   const [votes, setVotes] = useState({
-    buyVotes: token.buyVotes || 0,
-    byeVotes: token.byeVotes || 0
+    bullishVotes: token.buyVotes || 0,
+    bearishVotes: token.byeVotes || 0
   });
   const [isVoting, setIsVoting] = useState(false);
   const [currentGatewayIndex, setCurrentGatewayIndex] = useState(0);
@@ -50,8 +50,8 @@ export default function TokenCard({ token }) {
       if (doc.exists()) {
         const data = doc.data();
         setVotes({
-          buyVotes: data.buyVotes || 0,
-          byeVotes: data.byeVotes || 0
+          bullishVotes: data.buyVotes || 0,
+          bearishVotes: data.byeVotes || 0
         });
       }
     }, (error) => {
@@ -177,8 +177,8 @@ export default function TokenCard({ token }) {
         padding: '0 8px',
         fontSize: '12px'
       }}>
-        <span style={{ color: '#22c55e', fontWeight: '600' }}>Buy: {votes.buyVotes}</span>
-        <span style={{ color: '#ef4444', fontWeight: '600' }}>Bye: {votes.byeVotes}</span>
+        <span style={{ color: '#22c55e', fontWeight: '600' }}>Bullish: {votes.bullishVotes}</span>
+        <span style={{ color: '#ef4444', fontWeight: '600' }}>Bearish: {votes.bearishVotes}</span>
       </div>
 
       {/* Buttons Container */}

@@ -6,7 +6,7 @@ const db = getFirestore();
  * Function to vote on a token
  * @param {string} walletAddress - The user's wallet address
  * @param {string} tokenId - The ID of the token being voted on
- * @param {string} voteType - "buy" or "bye"
+ * @param {string} voteType - "bullish" or "bearish"
  */
 export async function voteOnToken(walletAddress, tokenId, voteType) {
   try {
@@ -17,8 +17,8 @@ export async function voteOnToken(walletAddress, tokenId, voteType) {
     if (!tokenId) {
       throw new Error("Token ID is missing. Please select a token to vote on.");
     }
-    if (voteType !== "buy" && voteType !== "bye") {
-      throw new Error('Invalid vote type. Use "buy" or "bye".');
+    if (voteType !== "bullish" && voteType !== "bearish") {
+      throw new Error('Invalid vote type. Use "bullish" or "bearish".');
     }
 
     // Create a unique document ID: Combine wallet address and token ID
@@ -53,4 +53,3 @@ export async function voteOnToken(walletAddress, tokenId, voteType) {
     throw error; // Re-throw the error so the calling function can handle it
   }
 }
-
